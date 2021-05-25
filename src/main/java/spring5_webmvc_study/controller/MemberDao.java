@@ -51,6 +51,7 @@ public class MemberDao {
 	}
 
 	public void update(Member member) {
+		jdbcTemplate.update("update member set name=?, password=? where email=?", member.getName(), member.getPassword(), member.getEmail());
 	}
 	
 	public void delete(Member member) {

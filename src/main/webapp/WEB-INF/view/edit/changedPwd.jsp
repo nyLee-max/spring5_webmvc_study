@@ -13,7 +13,7 @@
 		<spring:message code="change.pwd.done"/>
 	</p>
 	<p>
-		<a href="<c:url value='main'/>">
+		<a href="<c:url value='/main'/>">
 			[<spring:message code="go.main"/>]
 		</a>
 	</p>
