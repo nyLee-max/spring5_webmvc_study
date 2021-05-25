@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RegisterController {
+	
 	@Autowired
 	private MemberRegisterService memberRegisterService;
 
-	@RequestMapping("/register/step1")
+	@GetMapping("/register/step1")
 	public String handleStep1() {
 		return "/register/step1";
 	}
 
 	@PostMapping("/register/step2")
-	public String handleStep2(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, RegisterRequest registerRequest) {
+	public String handleStep2(@RequestParam(value = "agree", defaultValue = "false") Boolean agree,
+			RegisterRequest registerRequest) {
 		if (!agree) {
 			return "register/step1";
 		}
@@ -33,14 +35,14 @@ public class RegisterController {
 
 	@PostMapping("/register/step3")
 	public String handleStep3(RegisterRequest regReq, Errors errors) {
-		new RegisterRequestValidator().validate(regReq, errors);
-		if(errors.hasErrors())
-			return "register/step2";
+
+		if (errors.hasErrors())
+			return "/register/step2";
 		try {
 			memberRegisterService.regist(regReq);
-			return "register/step3";
+			return "/register/step3";
 		} catch (DuplicateMemberException ex) {
-			return "register/step2";
+			return "/register/step2";
 		}
 	}
 }
