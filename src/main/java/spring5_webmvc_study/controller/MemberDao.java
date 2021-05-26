@@ -11,6 +11,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class MemberDao {
 	}
 	
 	public List<Member> selectByRegdate(LocalDateTime from, LocalDateTime to){
-		String sql = "select *\r\n from member where regdate between ? and ? order by regdate desc";
+		String sql = "select * from member where regdate between ? and ? order by regdate desc";
 		return jdbcTemplate.query(sql, new MemberRowMapper(), from, to);
 	}
 
@@ -82,5 +83,11 @@ public class MemberDao {
 		return jdbcTemplate.queryForObject("select count(*) from member", Integer.class);
 	}
 	
+	public Member selectById(Long memId) {
+		MemberRowMapper memberRowMapper = new MemberRowMapper();
+		String sql = "select * from member where id = ?";
+		List<Member> results = jdbcTemplate.query(sql, memberRowMapper, memId);
+		return results.isEmpty()?null:results.get(0);
+	}
 	
 }
