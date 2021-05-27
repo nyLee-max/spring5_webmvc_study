@@ -39,13 +39,16 @@ dependencies {
 	
 	//mysql, connection pool
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.49'
-	implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
- 	
+	implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '8.5.66'
+
  	//log
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
 	testImplementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.14.1'
+	
+	// Jackson : JSON library
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.12.2'
 	
  	testImplementation 'junit:junit:4.13'
 }
